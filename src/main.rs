@@ -1,7 +1,19 @@
 use rand;
 use std::thread;
+use clap::Parser;
 
-/// performs stress test on given number of threads
+/// CLI arguments
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+
+    /// Number of workers to start
+    #[arg(short, long)]
+    count: u8,
+
+}
+
+/// Puts working load on given number of CPU threads
 fn stress_this(n: u8) {
     let mut handles = vec![];
 
@@ -16,6 +28,8 @@ fn stress_this(n: u8) {
         handles.push(handle);
     }
 
+    println!("{n} workers started");
+
     for handle in handles {
         handle.join().unwrap();
     }
@@ -23,7 +37,10 @@ fn stress_this(n: u8) {
 }
 
 fn main() {
+    let args = Args::parse();
 
-    stress_this(16);
+    let c = args.count;
+
+    stress_this(c);
 
 }
