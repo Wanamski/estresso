@@ -2,6 +2,8 @@
 name = "estresso"
 version = "0.1.0"
 edition = "2021"
+authors = ["Wanamski"]
+description = "A simple CPU stress test utility written in Rust"
 
 [dependencies]
 clap = { version = "4.5.26", features = ["derive"] }
